@@ -4,6 +4,7 @@ import (
 	"beefile/models"
 	"crypto/md5"
 	"database/sql"
+	"encoding/hex"
 	"fmt"
 	"github.com/astaxie/beego"
 	_"github.com/github.com/go-sql-driver/mysql"
@@ -49,12 +50,14 @@ func Connect() {
 	Db = db
 	fmt.Println(db)
 }
+//将用户信息保存到数据库中去的函数
 func AddUser(u models.User)(int64,error) {
 	//将密码进行hash计算，得到密码hash值，然后在存
 	md5Hash:=md5.New()
 	md5Hash.Write([]byte(u.Password))
-    passwordBytes:=md5Hash
-	//execute, .exe
+    passwordBytes:=md5Hash.Sum(nil)
+    u.Password=hex.EncodeToString(passwordBytes)
+	//execute 执行, .exe
 	result,err :=Db.Exec("insert into user(name ,birthday,address,password)"+
 		"values(?,?,?,?)",u.Name,u.Birthday,u.Address,u.Password)
 	if err != nil {

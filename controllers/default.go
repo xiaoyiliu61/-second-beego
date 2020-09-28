@@ -58,6 +58,6 @@ func (c *MainController) Post(){
 		c.Ctx.WriteString("数据接收失败，请重试")
 		return
 	}
-	fmt.Println("用户名：",person.User,",年龄：",person.Birthday,"地址：",person.Address,"nick:",person.Nick)
+	fmt.Println("用户名：",person.User,",年龄：",person.Birthday,"地址：",person.Address,"nick:",person.Age)
 	c.Ctx.WriteString("用户名是："+person.User,)
 }

@@ -8,5 +8,5 @@ type Person struct {
 	User string `json:"name"`
 	Birthday int
 	Address string
-	Nick  string
+	Age  int
 }
